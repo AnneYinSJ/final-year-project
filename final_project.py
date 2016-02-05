@@ -61,6 +61,7 @@ def classify_dtree(X,Y,test_data,test_labels):
 
 #Reservoir Sampling method
 #Score using reservoir sampled data of 100000 records is 56% and time to execute is 0.6 seconds
+#Score using reservoir sampled data of 300000 records is 59% and time to execute is 2.95 seconds
 def reservoir_sampler(data,labels):
 	SAMPLE_COUNT = 300000
 	# Force the value of the seed so the results are repeatable
