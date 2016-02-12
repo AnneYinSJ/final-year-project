@@ -1,0 +1,7 @@
+//Command to run DoTask from Command Line. DoTask is in DecisionTree/src inside Eclipse workspace
+javac -cp "C:\Users\HP-PC\Desktop\Programming\moa\moa.jar;C:\Users\HP-PC\Desktop\Programming\moa\sizeofag.jar" DoTask.java
+//Command to run from within the moa folder
+java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask "EvaluatePrequential -l trees.HoeffdingTree -s (ArffFileStream -f C:\Users\HP-PC\Desktop\poker-lsn.arff)"
+//Command to run java from Command Prompt
+java -cp moa.jar -javaagent:sizeofag.jar moa.gui.GUI
+Scikit learn can handle arff

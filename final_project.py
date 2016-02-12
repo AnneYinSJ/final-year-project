@@ -20,7 +20,7 @@ from sklearn.cross_validation import StratifiedShuffleSplit
 #Test data and labels are loaded
 def load_test_data():
 	#DataTable creation using pandas
-	table = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/poker-hand-training-true.data")
+	table = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/data/poker-hand-training-true.data")
 	table.columns = ["Suit1","Card1","Suit2","Card2","Suit3","Card3","Suit4","Card4","Suit5","Card5","Poker Hand"]
 	X = table.loc[:,["Suit1","Card1","Suit2","Card2","Suit3","Card3","Suit4","Card4","Suit5","Card5"]]
 	Y = table.loc[:,["Poker Hand"]]
@@ -29,7 +29,7 @@ def load_test_data():
 
 #The training dataset is created
 def load_training_data():
-	training_data = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/poker-hand-testing.data")
+	training_data = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/data/poker-hand-testing.data")
 	training_data.columns = ["Suit1","Card1","Suit2","Card2","Suit3","Card3","Suit4","Card4","Suit5","Card5","Poker Hand"]
 	training_labels = training_data.loc[:,["Poker Hand"]]
 	training_data = training_data.loc[:,["Suit1","Card1","Suit2","Card2","Suit3","Card3","Suit4","Card4","Suit5","Card5"]]
@@ -49,7 +49,7 @@ def classify(X,Y,test_data,test_labels):
 
 #Decision Tree using scikit-learn
 #Usual score is 66% for 999999 records and time to execute is 10.96 seconds
-def classify_dtree(X,Y,test_data,test_labels):  
+def classify_dtree(X,Y,test_data,test_labels):
 	print("Building the model for decision trees...")
 	start_time = datetime.now()
 	print(start_time)
@@ -71,7 +71,7 @@ def reservoir_sampler(data,labels):
 	#Generate the reservoir
 	sampled_data = sampled_data.append(data.loc[0:SAMPLE_COUNT-1])
 	sampled_labels = sampled_labels.append(labels.loc[0:SAMPLE_COUNT-1])
-		
+
 	for i in range(SAMPLE_COUNT,999998):
 			# Randomly replace elements in the reservoir
             # with a decreasing probability.
@@ -106,7 +106,7 @@ def random_sampler(data,labels):
 #Score using stratified sampled data of 100000 records is 56% and time to execute is 0.74 seconds
 #Score using stratified sampled data of 300000 records is 57% and time to execute is 2.80 seconds
 def stratified_sampler():
-	table = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/poker-hand-testing.data")
+	table = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/data/poker-hand-testing.data")
 	table.columns = ["Suit1","Card1","Suit2","Card2","Suit3","Card3","Suit4","Card4","Suit5","Card5","Poker Hand"]
 	target = table["Poker Hand"]
 	table = table.drop("Poker Hand", axis=1)
@@ -119,10 +119,10 @@ def stratified_sampler():
 	#ytrain.value_counts()
 	#ytest.value_counts()
 
-#Main method 
+#Main method
 def main():
 	[X,Y] = load_training_data()
 	[td,tl] = load_test_data()
 	op = classify(X,Y,td,tl)
 	classify_dtree(X,Y,td,tl)
-	
+
