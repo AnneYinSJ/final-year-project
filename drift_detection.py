@@ -4,6 +4,12 @@ Authors: Kiran Sudhir, Mayanka Pachaiyappa and Varun Bezzam
 Sri Sivasubramaniya Nadar College of Engineering
 Kalavakkam, Chennai, Tamil Nadu
 """
+#!Tabulate for different values of error_space and no_of_errors to be seen.
+#Extension to real world ELEC dataset.
+#!Display the decision tree. Output into pdf using pydot.
+#Tabulate accuracy for EDDM.
+#!Increase in the no. of instances.
+
 #Standard imports for machine learning
 import pandas as pd
 import numpy as np
@@ -164,7 +170,6 @@ def eddm(X,Y):
 
     return [data_frame_list,data_label_list]
 
-
 '''
 Our own drift detection method is being implemented here. Both performance and accuracy are significantly better than EDDM.
 Preliminary results look very promising.
@@ -174,7 +179,8 @@ Preliminary results look very promising.
 # New model trained with data from 44999 to 45673 for the third drift detected.
 def myeddm(X,Y):
     no_errors = 0
-    NO_OF_ERRORS_TO_BE_SEEN = 225
+    #NO_OF_ERRORS_TO_BE_SEEN = 225
+    NO_OF_ERRORS_TO_BE_SEEN = 180
     ALLOWED_SPACE = 18
     INIT_TRAIN_SIZE = 1000
     store = True
@@ -188,6 +194,7 @@ def myeddm(X,Y):
     llist = []
     clf = tree.DecisionTreeClassifier()
     clf = clf.fit(init_data,init_labels)
+
     for i in X.index:
         if i%1000 == 0 and i!=0:
             print("Index is :" + str(i))
@@ -224,6 +231,9 @@ def myeddm(X,Y):
 
     return [dlist,llist]
 
+'''
+Method that returns the predicted result of the ensemble method
+'''
 def ensemble_predict(ensemble, data):
     result_set = []
     for clf in ensemble:
@@ -241,7 +251,7 @@ An ensembling based method to drift detection and prediction is being implemente
 def ensemble_eddm(X,Y):
     no_errors = 0
     NO_OF_ERRORS_TO_BE_SEEN = 225
-    ALLOWED_SPACE = 18
+    ALLOWED_SPACE = 17
     INIT_TRAIN_SIZE = 1000
     store = True
     init_data = X.loc[0:INIT_TRAIN_SIZE]
@@ -292,6 +302,7 @@ def ensemble_eddm(X,Y):
             new_labels = new_labels.append(Y.loc[i])
 
     return [dlist,llist]
+
 #This method computes the accuracy of the ensembling method. The classification accuracy comes out to be close to 80.5%
 def find_accuracy(res,Y):
     no_errors = 0
@@ -308,8 +319,8 @@ def main():
     #[nd,nl] = eddm(X,Y)
     #[nd,nl] = ensemble_eddm(X,Y)
     #find_accuracy(res,Y)
-    #[nd,nl] = myeddm(X,Y)
-    many_classify_dtree(X,Y)
+    [nd,nl] = myeddm(X,Y)
+    #many_classify_dtree(X,Y)
 
 
 #This is how the main method is called...
