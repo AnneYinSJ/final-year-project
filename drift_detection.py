@@ -177,10 +177,12 @@ Preliminary results look very promising.
 # New model trained with data from 15475 to 16375 for the first drift detected.
 # New model trained with data from 30390 to 31100 for the second drift detected.
 # New model trained with data from 44999 to 45673 for the third drift detected.
+# Usual classification accuracy is 81%
 def myeddm(X,Y):
     no_errors = 0
+    overall_no_errors = 0
     #NO_OF_ERRORS_TO_BE_SEEN = 225
-    NO_OF_ERRORS_TO_BE_SEEN = 180
+    NO_OF_ERRORS_TO_BE_SEEN = 225
     ALLOWED_SPACE = 18
     INIT_TRAIN_SIZE = 1000
     store = True
@@ -202,6 +204,7 @@ def myeddm(X,Y):
         if clf.predict(X.loc[i])[0] != Y.loc[i][0]:
             #print(no_errors)
             no_errors = no_errors + 1
+            overall_no_errors = overall_no_errors + 1
             if old_index == -1:
                 old_index = i-1
             error_space = i - old_index
@@ -229,6 +232,7 @@ def myeddm(X,Y):
             new_data = new_data.append(X.loc[i])
             new_labels = new_labels.append(Y.loc[i])
 
+    print("Classification accuracy using our own drift detection method is: " + str((len(Y)-overall_no_errors)/len(Y)))
     return [dlist,llist]
 
 '''

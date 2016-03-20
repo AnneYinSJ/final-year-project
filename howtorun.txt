@@ -5,3 +5,5 @@ java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask "EvaluatePrequential -l tree
 //Command to run java from Command Prompt
 java -cp moa.jar -javaagent:sizeofag.jar moa.gui.GUI
 Scikit learn can handle arff
+
+java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask "EvaluatePrequential -l trees.HoeffdingTree -s (ArffFileStream -f C:\Users\HP-PC\Desktop\final-year-project\data\sear.data)">output.csv
