@@ -7,7 +7,7 @@ Kalavakkam, Chennai, Tamil Nadu
 #!Tabulate for different values of error_space and no_of_errors to be seen.
 #Extension to real world ELEC dataset.
 #!Display the decision tree. Output into pdf using pydot.
-#Tabulate accuracy for EDDM.
+#!Tabulate accuracy for EDDM.
 #!Increase in the no. of instances.
 
 #Standard imports for machine learning
@@ -32,6 +32,16 @@ import statistics
 from subprocess import call
 #Global Variables
 res = []
+
+#Load the special training dataset with 120000 instances
+#Classification accuracy is again 81%
+def load_big_data():
+    data = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/data/sea120000.csv")
+    data.columns = ["Attr1","Attr2","Attr3","Class"]
+    X = data.loc[:,["Attr1","Attr2","Attr3"]]
+    Y = data.loc[:,["Class"]]
+
+    return [X, Y]
 
 #Load the training dataset
 def load_data():
@@ -329,14 +339,15 @@ def find_accuracy(res,Y):
 
 #The main method is defined here...
 def main():
-    [X, Y] = load_data()
+    #[X, Y] = load_data()
+    [X, Y] = load_big_data()
     #classify(X,Y)
     #classify_dtree(X,Y)
     #[nd,nl] = eddm(X,Y)
     #[nd,nl] = ensemble_eddm(X,Y)
     #find_accuracy(res,Y)
-    '[nd,nl] = myeddm(X,Y)'
-    vfdt()
+    [nd,nl] = myeddm(X,Y)
+    #vfdt()
     #many_classify_dtree(X,Y)
 
 
