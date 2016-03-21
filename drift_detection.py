@@ -28,6 +28,8 @@ from math import sqrt
 from statistics import mode
 import statistics
 
+#Import for VFDT
+from subprocess import call
 #Global Variables
 res = []
 
@@ -39,6 +41,16 @@ def load_data():
     Y = data.loc[:,["Class"]]
 
     return [X, Y]
+
+#The VFDT method is implemented here.
+def vfdt():
+    call("java -cp moa.jar -javaagent:sizeofag.jar moa.DoTask \"EvaluatePrequential -l trees.HoeffdingTree -s (ArffFileStream -f C:/Users/HP-PC/Desktop/final-year-project/data/sear.data) -o op.csv\"")
+    df = pd.read_csv("C:/Users/HP-PC/Desktop/final-year-project/op.csv")
+    count=0
+    for index,row in df.iterrows():
+        if row[0] == row[1]:
+            count = count + 1
+    print("Classification Accuracy using VFDT is :" + str(count/len(df)))
 
 #Classification using Random Forests for the concept drift dataset
 def classify(X,Y):
@@ -323,7 +335,8 @@ def main():
     #[nd,nl] = eddm(X,Y)
     #[nd,nl] = ensemble_eddm(X,Y)
     #find_accuracy(res,Y)
-    [nd,nl] = myeddm(X,Y)
+    '[nd,nl] = myeddm(X,Y)'
+    vfdt()
     #many_classify_dtree(X,Y)
 
 
